@@ -1,5 +1,7 @@
 import express, { json } from 'express';
 import ProductManager from "./products.js";
+import validateProduct from './utils/validateProduct.js';
+
 const PORT = 3000;
 
 const app = express();
@@ -51,14 +53,38 @@ app.get('/products/:id', async (req, res) => {
 app.post('/products', async (req, res) => {
     try {
         const body = req.body;
-        console.log(body);
         const { name, price} = body;
-        if( name && price){
-            const product = await adm.saveProduct({ name, price})
-            res.json({ mensaje: 'Producto Guardado'})
-        } else {
-            res.json({ mensaje: 'Faltan parametros obligatorios'})
+
+        const error = validateProduct(name, price);
+
+        if( error ){
+           return res.status(400).json({ mensaje: error})
+        };
+        /*
+        // Campos obligatorios
+        if( !name || !price){
+           return res.status(400).json({ mensaje: 'Faltan parametros obligatorios'})
         }
+
+        // Tipos de datos
+        if( typeof(name) != 'string' ){
+           return res.status(400).json({ mensaje: 'El nombre debe ser Texto'})
+        }
+        if( typeof(price) != 'number' ){
+           return res.status(400).json({ mensaje: 'El Precio debe ser Numérico'})
+        }
+
+        // Logitud mínima
+        if( name.length < 4  ){
+           return res.status(400).json({ mensaje: 'El Nombre debe tener al menos tres caracteres'})
+        }
+        // Precio positivo
+        if( price <= 0  ){
+           return res.status(400).json({ mensaje: 'El Precio debe ser ser mayor a cero'})
+        }
+        */
+        const product = await adm.saveProduct({ name, price})
+        res.json({ mensaje: 'Producto Guardado'})
     } catch (error) {
         console.error(error);
         response.status(500).json({ mensaje: 'Error del Servidor'});
@@ -71,7 +97,11 @@ app.put('/products/:id', async (req, res) => {
         const body = req.body;
         const { id } = req.params;
         const { name, price} = body;
+        const error = validateProduct(name, price);
 
+        if( error ){
+           return res.status(400).json({ mensaje: error})
+        };
         const product = await adm.updateProductById(id, {name, price});
 
         res.json({data: product})
