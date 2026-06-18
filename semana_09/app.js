@@ -11,12 +11,22 @@ const spanNombre = document.querySelector('#spanNombre');
 
 
 function leerInput(){
-    let texto = inputBuscar.value;
-    mostrarTexto(texto);
+    let texto = inputBuscar.value.trim().toLowerCase();
+    filtrarProductos(texto);
 }
 
-function mostrarTexto(texto) {
-    spanNombre.textContent = texto;
+function filtrarProductos(texto) {
+   
+    let listAux = [];
+    for(let i=0; i< products.length; i++){
+        const product = products[i];
+        console.log(product)
+        if( product.name.toLowerCase().includes( texto )){
+            listAux.push( product);
+        }
+    }
+
+    mostrarProductos(listAux);
 }
 
 function cambiarFondo(){
@@ -32,23 +42,29 @@ function cambiarFondo(){
     }
 }
 
+
+function mostrarProductos(products){
+    cantidad.textContent = products.length;
+    contenedorProductos.innerHTML = "";
+
+    if( products.length == 0 ){
+        contenedorProductos.innerHTML = '<h4> No se encontraron Resultados</h4>';
+        return;
+    }
+    for (let index = 0; index < products.length; index++) {
+        const product = products[index];
+        contenedorProductos.innerHTML += 
+            ` <div class="card">
+                    <img src="${product.img}" alt="${product.name}">
+                    <h3> ${ product.name }</h3>
+                    <h4>$ ${ product.price}</h4>
+                </div>`;
+    }
+
+}
+
+mostrarProductos(products);
+
 btnAccion.addEventListener('click', cambiarFondo);
 inputBuscar.addEventListener('input', leerInput)
-
-
-
-cantidad.textContent = products.length;
-
-console.log( products.length);
-
-
-for (let index = 0; index < products.length; index++) {
-    const product = products[index];
-    contenedorProductos.innerHTML += 
-        ` <div class="card">
-                <img src="${product.img}" alt="${product.name}">
-                <h3> ${ product.name }</h3>
-                <h4>$ ${ product.price}</h4>
-            </div>`;
-}
 

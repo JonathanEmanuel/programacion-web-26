@@ -13,10 +13,10 @@ for (let index = 0; index < products.length; index++) {
     const product = products[index];
     console.log(product);
     contenedorProductos.innerHTML += 
-        ` <div class="card">
+        `<div class="card">
                 <img src="${product.img}" alt="${product.name}">
                 <h3> ${ product.name }</h3>
                 <h4>$ ${ product.price}</h4>
-            </div>`;
+        </div>`;
 }
 
