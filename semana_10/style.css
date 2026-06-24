@@ -117,3 +117,12 @@ h2 {
 .col {
     width: 100%;
 }
+
+.error {
+    border: 2px solid tomato;
+}
+
+small {
+    color: tomato;
+    min-height: 20px;
+}
