@@ -4,7 +4,10 @@ const d = document;
 const titulo = d.querySelector('h1');
 const cantidad = d.querySelector('span');
 const contenedorProductos = d.querySelector('#contenedorProductos');
-const btnAccion = document.querySelector('#btnAccion');
+const btnMenor = document.querySelector('#btnMenor');
+const btnMayor = document.querySelector('#btnMayor');
+const btnModo = document.querySelector('#btnModo');
+
 const secciones = document.querySelectorAll('.contenedor');
 const inputBuscar = document.querySelector('#inputBuscar');
 const spanNombre = document.querySelector('#spanNombre');
@@ -16,16 +19,13 @@ function leerInput(){
 }
 
 function filtrarProductos(texto) {
-   
     let listAux = [];
     for(let i=0; i< products.length; i++){
         const product = products[i];
-        console.log(product)
         if( product.name.toLowerCase().includes( texto )){
             listAux.push( product);
         }
     }
-
     mostrarProductos(listAux);
 }
 
@@ -41,7 +41,6 @@ function cambiarFondo(){
         seccion.style.backgroundColor = '#1e1e1e';
     }
 }
-
 
 function mostrarProductos(products){
     cantidad.textContent = products.length;
@@ -63,8 +62,25 @@ function mostrarProductos(products){
 
 }
 
+function ordernarMenor(){
+    console.log('Ordenar Menor');
+    products.sort( (a, b) => { return a.price - b.price } );
+    console.table(products);
+    mostrarProductos(products);
+}
+
+function ordernarMayor(){
+    console.log('Ordenar Mayor');
+    products.sort( (a, b) => { return  b.price - a.price} );
+    console.table(products);
+    mostrarProductos(products);
+}
+
 mostrarProductos(products);
 
-btnAccion.addEventListener('click', cambiarFondo);
+btnModo.addEventListener('click', cambiarFondo);
+btnMenor.addEventListener('click', ordernarMenor);
+btnMayor.addEventListener('click', ordernarMayor);
+
 inputBuscar.addEventListener('input', leerInput)
 
