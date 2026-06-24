@@ -30,16 +30,8 @@ function filtrarProductos(texto) {
 }
 
 function cambiarFondo(){
-    console.log('Se hizo click');
     const body = document.querySelector('body');
-
-    body.style.backgroundColor = '#000';
-    body.style.padding = '2px';
-
-    for (let i = 0; i < secciones.length; i++) {
-        const seccion = secciones[i];
-        seccion.style.backgroundColor = '#1e1e1e';
-    }
+    body.classList.toggle('dark');  
 }
 
 function mostrarProductos(products){
@@ -63,16 +55,16 @@ function mostrarProductos(products){
 }
 
 function ordernarMenor(){
-    console.log('Ordenar Menor');
+    // console.log('Ordenar Menor');
     products.sort( (a, b) => { return a.price - b.price } );
-    console.table(products);
+    // console.table(products);
     mostrarProductos(products);
 }
 
 function ordernarMayor(){
-    console.log('Ordenar Mayor');
+    // console.log('Ordenar Mayor');
     products.sort( (a, b) => { return  b.price - a.price} );
-    console.table(products);
+    // console.table(products);
     mostrarProductos(products);
 }
 
