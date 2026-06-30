@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Productos  <span class="span-rojo "> - </span></h1>
+    </header>
+    <main>
+        <section class="contenedor">
+            <input id="inputBuscar" type="text" placeholder="Buscar...">
+            <button id="btnMenor" class="btn">Menor Precio</button>
+            <button id="btnMayor" class="btn">Mayor Precio</button>
+            <button id="btnModo" class="btn"> ☀️ / 🌑</button>
+            <a href="create.html" class="btn">nuevo</a>
+            <span id="spanNombre"></span>
+        </section>
+        <section class="contenedor">
+
+            <h2>Nuevo producto</h2>
+
+            <form id="formProducto">
+
+                <label>Nombre</label>
+                <input
+                    id="inputNombre"
+                    type="text"
+                    required>
+
+                <label>Precio</label>
+                <input
+                    id="inputPrecio"
+                    type="number"
+                    required>
+
+                <label>Foto</label>
+                <input
+                    id="inputFoto"
+                    type="text">
+
+                <button class="btn" type="submit">
+                    Guardar
+                </button>
+
+            </form>
+
+        </section>
+        <section id="contenedorProductos" class="contenedor">
+            <!--             
+            <div class="card">
+                <img src="images/monitor.png" alt="monitor">
+                <h3>Monitor FULL HD</h3>
+                <h4>$320.000</h4>
+            </div> 
+            -->
+        </section>
+    </main>
+    <footer>
+        <p> Tienda de Productos</p>
+    </footer>
+    <script src="app.js" type="module"></script>
+</body>
+</html>
