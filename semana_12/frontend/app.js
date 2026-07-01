@@ -15,6 +15,8 @@ const inputFoto = document.querySelector('#inputFoto');
 
 const spanNombre = document.querySelector('#spanNombre');
 
+let idEditar = null;
+let productos = [];
 
 function leerInput(){
     let texto = inputBuscar.value.trim().toLowerCase();
@@ -37,6 +39,45 @@ function cambiarFondo(){
     body.classList.toggle('dark');  
 }
 
+async function eliminarProducto( btn ){
+    const id = btn.target.dataset.id
+    const respuesta = confirm("¿Confirma eliminar el Producto?");
+    if( !respuesta){
+        return;
+    }
+
+    const endPoint = `http://127.0.0.1:4000/products/${id}`;
+
+    try {
+        const resp = await fetch(endPoint, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const json = await resp.json();
+        const  { data } = json;
+        console.log( data);
+        obtenerProductos();
+
+     } catch (error) {
+        console.log('Error', error);
+    }
+
+}
+
+function editarProducto ( btn){
+    const id = btn.target.dataset.id
+    console.log('Editando: ', id)
+    const producto = productos.find( p => p._id == id);
+    console.log(producto);
+    idEditar = producto._id;
+    inputNombre.value = producto.name;
+    inputPrecio.value = producto.price;
+    inputFoto.value = producto.photo;
+
+}
+
 function mostrarProductos(products){
     cantidad.textContent = products.length;
     contenedorProductos.innerHTML = "";
@@ -52,7 +93,24 @@ function mostrarProductos(products){
                     <img src="${product.photo}" alt="${product.name}">
                     <h3> ${ product.name }</h3>
                     <h4>$ ${ product.price}</h4>
+                    <div class="acciones">
+                        <button class="btn btnEditar"  data-id="${ product._id }"> Editar </button>
+                        <button class="btn btnEliminar"  data-id="${ product._id }"> Eliminar </button>
+
+                    </div>
                 </div>`;
+    }
+
+    const btnsElminar = document.querySelectorAll('.btnEliminar');
+    for(let i=0; i< btnsElminar.length; i++){
+        const btnElminar = btnsElminar[i];
+        btnElminar.addEventListener('click', eliminarProducto)
+    }
+
+    const btnsEditar = document.querySelectorAll('.btnEditar');
+    for(let i=0; i< btnsEditar.length; i++){
+        const btnEditar = btnsEditar[i];
+        btnEditar.addEventListener('click', editarProducto)
     }
 
 }
@@ -78,6 +136,7 @@ async function obtenerProductos(){
         const resp = await fetch(endPoint);
         const json = await resp.json();
         const  { data } = json;
+        productos = data;
         mostrarProductos(data);
 
      } catch (error) {
@@ -93,29 +152,51 @@ async function guardarProducto(event) {
         price: inputPrecio.value,
         photo: inputFoto.value
     }
-    const endPoint = 'http://127.0.0.1:4000/products';
 
-    try {
-        const resp = await fetch(endPoint, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(producto)
-        });
-        const json = await resp.json();
-        console.log(json)
+    if( idEditar==null){
+        const endPoint = 'http://127.0.0.1:4000/products';
 
-        obtenerProductos();
+        try {
+            const resp = await fetch(endPoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(producto)
+            });
+            const json = await resp.json();
+            //console.log(json)
 
-        inputNombre.value = "";
-        inputPrecio.value = "";
-        inputFoto.value = "";
+        } catch (error) {
+            console.log('Error', error);
+        }
+    } else {
+        const endPoint = `http://127.0.0.1:4000/products/${idEditar}`;
 
-     } catch (error) {
-        console.log('Error', error);
+        try {
+            const resp = await fetch(endPoint, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(producto)
+
+            });
+            const json = await resp.json();
+            const  { data } = json;
+            console.log( data);
+
+        } catch (error) {
+            console.log('Error', error);
+        }
     }
 
+    idEditar = null;
+    inputNombre.value = "";
+    inputPrecio.value = "";
+    inputFoto.value = "";
+    obtenerProductos();
+   
 
 }
 

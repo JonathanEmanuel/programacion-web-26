@@ -62,11 +62,9 @@ app.put('/products/:id', async (req, res) => {
     try {
         const body = req.body;
         const { id } = req.params;
-        const { name, price} = body;
+        const { name, price, photo} = body;
 
-
-        //const product = await adm.updateProductById(id, {name, price});
-        const product = await productModel.findByIdAndUpdate(id, { name, price});
+        const product = await productModel.findByIdAndUpdate(id, { name, price, photo});
 
         res.json({data: product})
     } catch (error) {
