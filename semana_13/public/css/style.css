@@ -1,0 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    font-family: "Montserrat", sans-serif;
+    margin: 0;
+}
+body {
+    transition: background-color 0.5s ease,
+                color 0.5s ease;
+}
+
+header {
+    background-color:#4285f4;
+    color: white;
+    padding: 36px;
+}
+
+header h1 {
+    text-align: center;
+}
+
+main {
+    min-height: 74vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 16px;
+    gap: 10px;
+}
+
+footer {
+    padding: 14px;
+    background-color: #424242;
+    color: white;
+}
+
+footer p {
+    text-align: center;
+}
+
+input {
+    border-radius: 3px;
+  
+}
+
+.btn {
+    background-color: #4285f4;
+    padding: 5px;
+    min-width: 100px;
+    border: none;
+    border-radius: 3px;
+    color: white;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px #424242;
+}
+
+a.btn {
+    text-align: center;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background-color: #6098f2;
+}
+
+.btn:active {
+    box-shadow: 1px 1px 2px #c2bebe;
+    color: #000;
+}
+.card {
+    border: 2px solid #3f86f9;
+    width: 200px;
+    height: 250px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px #424242;
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: top;
+
+}
+
+.card h3, h4 {
+    text-align: center;
+}
+
+.card img {
+    width: 100%;
+}
+
+h4 {
+    color: tomato;
+}
+
+h2 {
+    text-align: right;
+}
+
+form {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+label {
+    margin-top: 10px;
+}
+
+input {
+    padding: 5px;
+}
+.span-rojo {
+    padding: 2px 6px;
+    border-radius: 5px;
+    background-color: tomato;
+    color: white;
+} 
+.contenedor {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 90vw;
+    border: 1px dotted #424242;
+    background-color: #e6e4e4;
+    padding: 16px;
+}
+
+.dark {
+    background-color: #121212;
+}
+
+.dark .contenedor {
+    background-color: #121212;
+    color: white;
+}
+
+.dark .card {
+    background-color: #2b2b2b;
+    color: #e6e4e4;
+}
+
+.dark header,footer {
+    background-color: #1f1f1f;
+}
+
+.dark input {
+    background-color: #2b2b2b;
+    color: #e6e4e4;
+}
+
+.acciones{
+    display:flex;
+    justify-content:center;
+    gap:5px;
+    margin-top:12px;
+    padding: 10px;
+}
+
+.btnEliminar{
+    background:#d9534f;
+}
+
+.btnEliminar:hover{
+    background:#c9302c;
+}
+
+.btnEditar{
+    background:#f0ad4e;
+}
+
+.btnEditar:hover{
+    background:#ec971f;
+}
+
+.oculto {
+    display: none;
+}
